@@ -1,10 +1,10 @@
 class Song
 	@name
 	@duration
-	
+
 	attr_accessor :name
 	attr_accessor :duration
-	
+
 	#def set_song(number, name, duration)
 	#	@num = num
 	#	@name = name
@@ -27,7 +27,7 @@ class Album
 	#attr_accessor :title
 	#attr_accessor :year
 	#attr_accessor :tracks
-	
+
 	def set_album(artist, title, year, tracks)
 		@artist = artist
 		@title = title
@@ -37,21 +37,15 @@ class Album
 
 	def get_album
 		result = "#{@artist} - #{@title} (#{@year}) \n"
+		counter = 0
 		@tracks.each do |track|
 			#result += "#{track} \n"
-			result = result + "#{track.name} (#{track.duration}) \n"
+			counter += 1
+			result = result + " Track #{counter}. #{track.name} (#{track.duration}) \n"
 		end
 		return result
-	end	
+	end
 
-	
-	#def print_album
-	#	puts "#{@artist} - #{@title} (#{@year})"
-		#@tracks.each do |track|
-		#	puts track
-		#end
-		#puts @tracks
-	#end	
 end
 
 =begin
@@ -97,15 +91,17 @@ until exit == true
 			year = gets.chomp.to_i
 			done = false
 			song_array = []
+			counter = 0
 			until done
 				song = Song.new
 				puts "Enter a track title. Or enter 'd' when done"
+				counter += 1
 				response = gets.chomp
 				if response.downcase != "d"
 					song.name = response
-					puts "Enter the song duration"
+					puts "Enter the song duration [m:ss]"
 					song.duration = gets.chomp
-					puts "#{song.name} - #{song.duration}"
+					puts " Track #{counter}. #{song.name} - #{song.duration}"
 					song_array << song
 					#puts song_array
 				else
@@ -114,7 +110,7 @@ until exit == true
 			end
 			album_array << album
 			album.set_album(artist, title, year, song_array)
-			
+
 		when "b"
 			album = Album.new
 			puts "\nHere are your albums and tracks: "
@@ -124,7 +120,10 @@ until exit == true
 				puts album.get_album
 				puts
 			end
+
 		when "x"
 			exit = true
+
 	end
+
 end
