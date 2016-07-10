@@ -63,15 +63,22 @@ until exit == true
 				response = gets.chomp
 				if response.downcase != "d"
 					rmember.name = response
+					rmember.hastoken = ""
+					rmember_array << rmember
+					puts "#{rmember.name} - #{rmember.hastoken}"
+					puts rmember_array
 					puts "Do you want this person to have the next turn? [Enter 'y' or 'n']"
 					response = gets.chomp
 						if response == "y"
-							if rmember.hastoken.nil?
-								puts "It's nil"
-								rmember.hastoken = "My Turn"
-								puts "It's now #{rmember.name}'s turn in the rotation"
-							else
+							if !@rmembers.nil?
+								puts "It's not nil"
+#								rmember.hastoken = "My Turn"
+#								puts "It's now #{rmember.name}'s turn in the rotation"
+#							else
+								rcounter = 0
 								@rmembers.each do |rmember|
+									rcounter += 1
+									puts "rcounter is #{rcounter}"
 	   							if rmember.hastoken == "My Turn"
 										puts "Sorry, it's already someone else's turn"
 										rmember.hastoken = ""
@@ -85,7 +92,6 @@ until exit == true
 							rmember.hastoken = ""
 						end
 					puts " Member #{counter}. #{rmember.name} (#{rmember.hastoken})"
-					rmember_array << rmember
 					#puts rmember_array
 				else
 					done = true
